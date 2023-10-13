@@ -3,29 +3,28 @@ var form = document.getElementById('addForm');
 var itemList = document.getElementById('items');
 var filter = document.getElementById('filter');
 
-// Form submit event
-form.addEventListener('submit', addItem);
+form.addEventListener('submit', onAddItemSubmit);
 
 // Delete event
 itemList.addEventListener('click', removeItem);
 // Filter event
 filter.addEventListener('keyup', filterItems);
-
+// localStorage.clear();
 // Add item
-function addItem(e) {
+function onAddItemSubmit(e) {
   e.preventDefault();
 
   // Get input value
   var newItem = document.getElementById('item').value;
 
-  var newItem1 = document.getElementById('item2').value;
+
   // Create new li element
   var li = document.createElement('li');
   // Add class
   li.className = 'list-group-item';
   // Add text node with input value
   li.appendChild(document.createTextNode(newItem));
-  li.appendChild(document.createTextNode(newItem1));
+
   // Create del button element
   var deleteBtn = document.createElement('button');
 
@@ -40,8 +39,23 @@ function addItem(e) {
 
   // Append li to list
   itemList.appendChild(li);
+  // addItemToLocalStorage(newItem);
+  addItemToLocalStorage(newItem);
 }
 
+
+function addItemToLocalStorage(newItem) {
+
+  let itemforStorage;
+  if (localStorage.getItem("items") === null) {
+    itemforStorage = [];
+  }
+  else {
+    itemforStorage = JSON.parse(localStorage.getItem("items"));
+  }
+  itemforStorage.push(newItem);
+  localStorage.setItem("items", JSON.stringify(itemforStorage));
+}
 // Remove item
 function removeItem(e) {
   if (e.target.classList.contains('delete')) {
@@ -71,3 +85,4 @@ function filterItems(e) {
   });
 
 }
+
