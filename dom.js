@@ -47,12 +47,14 @@ function onAddItemSubmit(e) {
 function addItemToLocalStorage(newItem) {
 
   let itemforStorage;
+  
   if (localStorage.getItem("items") === null) {
     itemforStorage = [];
   }
   else {
     itemforStorage = JSON.parse(localStorage.getItem("items"));
   }
+  
   itemforStorage.push(newItem);
   localStorage.setItem("items", JSON.stringify(itemforStorage));
 }
