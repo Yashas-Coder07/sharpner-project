@@ -1,7 +1,7 @@
 var form = document.getElementById('addForm');
 var name, emailId, phoneNumber;
-var button = document.createElement(button);
-
+var button = document.createElement('button');
+var edit = document.createElement('button');
 // localStorage.clear();
 form.addEventListener('submit', onAddItemSubmit);
 
@@ -15,6 +15,8 @@ function onAddItemSubmit(e) {
 
     button.innerHTML = ` <button>Delete</button>`;
     button.setAttribute("id", "destruct");
+    edit.innerHTML = ` <button>Edit</button> `;
+    edit.setAttribute("id", "edit");
 
     var div = document.createElement("div");
 
@@ -22,7 +24,8 @@ function onAddItemSubmit(e) {
     var setElement = document.querySelector(".container");
 
     setElement.appendChild(div);
-    setElement.appendChild(button)
+    setElement.appendChild(button);
+    setElement.appendChild(edit);
 
     let itemforStorage;
 
@@ -41,7 +44,22 @@ function onAddItemSubmit(e) {
         setElement.appendChild(div);
         button.innerHTML = "";
         setElement.appendChild(button);
+        edit.innerHTML = ""
+        setElement.appendChild(edit);
+        localStorage.clear();
 
+    });
+    var destruct = document.getElementById('edit');
+    destruct.addEventListener('click', () => {
+        document.getElementById('item').value = name;
+        document.querySelector("#item:nth-child(2)").value = emailId;
+        document.querySelector('#item:nth-child(3)').value = phoneNumber;
+        div.innerHTML = "";
+        setElement.appendChild(div);
+        button.innerHTML = "";
+        setElement.appendChild(button);
+        edit.innerHTML = ""
+        setElement.appendChild(edit);
         localStorage.clear();
 
     });
